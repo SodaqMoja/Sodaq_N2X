@@ -19,7 +19,7 @@
 */
 
 #include "Sodaq_N2X.h"
-#include "Sodaq_wdt.h"
+#include <Sodaq_wdt.h>
 #include "time.h"
 
 //#define DEBUG
@@ -57,13 +57,7 @@
 #define NL '\n'
 #define CR '\r'
 
-#define IP_TO_TUPLE(x) (uint8_t)(((x) >> 24) & 0xFF), \
-    (uint8_t)(((x) >> 16) & 0xFF), \
-    (uint8_t)(((x) >> 8) & 0xFF), \
-    (uint8_t)(((x) >> 0) & 0xFF)
-
 #define SOCKET_FAIL -1
-
 #define NOW (uint32_t)millis()
 
 typedef struct NameValuePair {
@@ -98,7 +92,7 @@ Sodaq_N2X::Sodaq_N2X() :
     _minRSSI             = -113;  // dBm
     _onoff               = 0;
 
-    memset(_pendingUDPBytes, 0, SOCKET_COUNT);
+    memset(_pendingUDPBytes, 0, sizeof(_pendingUDPBytes));
 }
 
 // Returns true if the modem replies to "AT" commands without timing out.
@@ -426,7 +420,8 @@ bool Sodaq_N2X::checkAndApplyNconfig()
 
                 if (strcmp(value, v) == 0) {
                     debugPrintLn("... OK");
-                } else {
+                }
+                else {
                     debugPrintLn("... CHANGE");
                     setNconfigParam(nConfig[i].Name, v);
                 }
@@ -587,16 +582,13 @@ size_t Sodaq_N2X::socketSend(uint8_t socketID, const char* remoteIP, const uint1
     // only Datagram/UDP is supported
     print("AT+NSOST=");
     print(socketID);
-    print(',');
-    print('"');
+    print(",\"");
     print(remoteIP);
-    print('"');
-    print(',');
+    print("\",");
     print(remotePort);
     print(',');
     print(size);
-    print(',');
-    print('"');
+    print(",\"");
 
     for (size_t i = 0; i < size; ++i) {
         print(static_cast<char>(NIBBLE_TO_HEX_CHAR(HIGH_NIBBLE(buffer[i]))));
@@ -663,9 +655,7 @@ size_t Sodaq_N2X::socketReceive(uint8_t socketID, SaraN2UDPPacketMetadata* packe
     print("AT+NSORF=");
     print(socketID);
     print(',');
-
-    size_t readSize = min(size, _pendingUDPBytes[socketID]);
-    println(readSize);
+    println(min(size, _pendingUDPBytes[socketID]));
 
     char outBuffer[1024];
 
