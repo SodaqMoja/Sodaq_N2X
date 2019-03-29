@@ -1,0 +1,86 @@
+#######################################
+# Syntax Coloring Map For Sodaq_N2X
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+Sodaq_N2X	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+on	KEYWORD2
+off	KEYWORD2
+isOn	KEYWORD2
+init	KEYWORD2
+connect	KEYWORD2
+disconnect	KEYWORD2
+getDefaultBaudrate	KEYWORD2
+setDiag	KEYWORD2
+setInputBufferSize	KEYWORD2
+attachGprs	KEYWORD2
+getCCID	KEYWORD2
+getEpoch	KEYWORD2
+getFirmwareVersion	KEYWORD2
+getIMEI	KEYWORD2
+execCommand	KEYWORD2
+isAlive	KEYWORD2
+isAttached	KEYWORD2
+isConnected	KEYWORD2
+overrideNconfigParam	KEYWORD2
+ping	KEYWORD2
+purgeAllResponsesRead	KEYWORD2
+setApn	KEYWORD2
+setBand	KEYWORD2
+setCdp	KEYWORD2
+setIndicationsActive	KEYWORD2
+setOperator	KEYWORD2
+setRadioActive	KEYWORD2
+setVerboseErrors	KEYWORD2
+convertCSQ2RSSI	KEYWORD2
+convertRSSI2CSQ	KEYWORD2
+getCSQtime	KEYWORD2
+getLastRSSI	KEYWORD2
+getMinRSSI	KEYWORD2
+getRSSIAndBER	KEYWORD2
+setMinCSQ	KEYWORD2
+setMinRSSI	KEYWORD2
+socketCreate	KEYWORD2
+socketSend	KEYWORD2
+socketWaitForReceive	KEYWORD2
+socketReceive	KEYWORD2
+socketClose	KEYWORD2
+socketGetPendingBytes	KEYWORD2
+socketHasPendingBytes	KEYWORD2
+getReceivedMessagesCount	KEYWORD2
+getSentMessagesCount	KEYWORD2
+receiveMessage	KEYWORD2
+sendMessage	KEYWORD2
+
+#######################################
+# Instances (KEYWORD3)
+#######################################
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+
+DEFAULT_READ_MS	LITERAL1
+SODAQ_MAX_UDP_SEND_MESSAGE_SIZE	LITERAL1
+SODAQ_N2X_DEFAULT_CID	LITERAL1
+SODAQ_N2X_DEFAULT_UDP_TIMOUT_MS	LITERAL1
+SODAQ_N2X_MAX_UDP_BUFFER	LITERAL1
+GSMResponseNotFound	LITERAL1
+GSMResponseOK	LITERAL1
+GSMResponseError	LITERAL1
+GSMResponsePrompt	LITERAL1
+GSMResponseTimeout	LITERAL1
+GSMResponseEmpty	LITERAL1
+TCP	LITERAL1
+UDP	LITERAL1
+Pending	LITERAL1
+Error	LITERAL1
+SOCKET_COUNT	LITERAL1
