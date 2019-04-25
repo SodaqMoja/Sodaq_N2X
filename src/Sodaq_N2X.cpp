@@ -238,6 +238,53 @@ bool Sodaq_N2X::getCCID(char* buffer, size_t size)
     return (readResponse(buffer, size, "+CCID: ") == GSMResponseOK) && (strlen(buffer) > 0);
 }
 
+bool Sodaq_N2X::getOperatorInfo(uint16_t* mcc, uint16_t* mnc)
+{
+    println("AT+COPS?");
+
+	char responseBuffer[64];
+    memset(responseBuffer, 0, sizeof(responseBuffer));
+	
+	uint32_t operatorCode = 0;
+
+    if ((readResponse(responseBuffer, sizeof(responseBuffer), "+COPS: ") == GSMResponseOK) && (strlen(responseBuffer) > 0)) {
+		
+		if (sscanf(responseBuffer, "%*d,%*d,\"%u\"", &operatorCode) == 1) {
+			uint16_t divider = (operatorCode > 100000) ? 1000 : 100;
+			
+			*mcc = operatorCode / divider;
+			*mnc = operatorCode % divider;
+			
+            return true;
+		}
+    }
+
+    return false;
+}
+
+bool Sodaq_N2X::getOperatorInfoString(char* buffer, size_t size)
+{
+	if (size < 32 + 1) {
+         return false;
+    }
+	
+	buffer[0] = 0;
+    
+	println("AT+COPS?");
+
+	char responseBuffer[64];
+    memset(responseBuffer, 0, sizeof(responseBuffer));
+
+    if ((readResponse(responseBuffer, sizeof(responseBuffer), "+COPS: ") == GSMResponseOK) && (strlen(responseBuffer) > 0)) {
+		
+		if (sscanf(responseBuffer, "%*d,%*d,\"%[^\"]\"", buffer) == 1) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
 bool Sodaq_N2X::getEpoch(uint32_t* epoch)
 {
     println("AT+CCLK?");
