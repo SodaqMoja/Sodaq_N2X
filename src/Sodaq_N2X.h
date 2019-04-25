@@ -134,6 +134,7 @@ public:
     bool getCCID(char* buffer, size_t size);
     bool getEpoch(uint32_t* epoch);
     bool getFirmwareVersion(char* buffer, size_t size);
+	bool getFirmwareRevision(char* buffer, size_t size);
     bool getIMEI(char* buffer, size_t size);
     bool execCommand(const char* command, uint32_t timeout = DEFAULT_READ_MS, char* buffer = NULL, size_t size = 0);
 

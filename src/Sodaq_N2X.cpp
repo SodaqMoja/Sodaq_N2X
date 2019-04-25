@@ -269,6 +269,15 @@ bool Sodaq_N2X::getFirmwareVersion(char* buffer, size_t size)
     return execCommand("AT+CGMR", DEFAULT_READ_MS, buffer, size);
 }
 
+bool Sodaq_N2X::getFirmwareRevision(char* buffer, size_t size)
+{
+    if (buffer == NULL || size < 30 + 1) {
+        return false;
+    }
+
+    return execCommand("ATI9", DEFAULT_READ_MS, buffer, size);
+}
+
 // Gets International Mobile Equipment Identity.
 // Should be provided with a buffer of at least 16 bytes.
 // Returns true if successful.
