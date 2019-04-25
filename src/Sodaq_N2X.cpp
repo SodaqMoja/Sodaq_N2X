@@ -285,6 +285,29 @@ bool Sodaq_N2X::getOperatorInfoString(char* buffer, size_t size)
     return false;
 }
 
+bool Sodaq_N2X::getCellId(uint16_t* tac, uint32_t* cid)
+{
+    println("AT+CEREG=2");
+
+    if (readResponse() != GSMResponseOK) {
+        return false;
+    }
+
+    println("AT+CEREG?");
+
+    char responseBuffer[64];
+    memset(responseBuffer, 0, sizeof(responseBuffer));
+
+    if ((readResponse(responseBuffer, sizeof(responseBuffer), "+CEREG: ") == GSMResponseOK) && (strlen(responseBuffer) > 0)) {
+		
+		if (sscanf(responseBuffer, "2,%*d,\"%hx\",\"%x\",", tac, cid) == 2) {
+            return true;
+		}
+    }
+
+    return false;
+}
+
 bool Sodaq_N2X::getEpoch(uint32_t* epoch)
 {
     println("AT+CCLK?");
